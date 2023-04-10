@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Clothing Suggester</string>
+    <string name="tanta">Tanta</string>
+    <string name="_17">17 °C</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="cloud_cover">Cloud Cover</string>
+    <string name="_16">16 %</string>
+    <string name="_25_m_s">25 M/S</string>
+    <string name="recommended_outfit">Recommended Outfit</string>
+    <string name="clear_sky">Clear Sky</string>
 </resources>

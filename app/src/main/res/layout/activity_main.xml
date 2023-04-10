@@ -4,16 +4,147 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.MainActivity"
+    android:background="@color/black">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/tanta"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_weather_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_light"
+        android:letterSpacing="0.3"
+        android:text="@string/clear_sky"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/text_city"
+        app:layout_constraintTop_toBottomOf="@id/text_city" />
+
+    <TextView
+        android:id="@+id/text_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/white"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_weather_state"
+        android:text="@string/_17" />
+
+    <TextView
+        android:id="@+id/text_humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/humidity"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/text_wind_speed"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_temperature" />
+
+    <TextView
+        android:id="@+id/text_humidity_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/_16"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:drawableTopCompat="@drawable/baseline_water_drop_24"
+        app:layout_constraintEnd_toEndOf="@id/text_humidity"
+        app:layout_constraintStart_toStartOf="@id/text_humidity"
+        app:layout_constraintTop_toBottomOf="@id/text_humidity" />
+
+    <TextView
+        android:id="@+id/text_wind_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/wind_speed"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/cloud_cover"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/text_humidity"
+        app:layout_constraintTop_toTopOf="@id/text_humidity" />
+
+    <TextView
+        android:id="@+id/text_wind_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/_25_m_s"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:drawableTopCompat="@drawable/baseline_wind_power_24"
+        app:layout_constraintEnd_toEndOf="@id/text_wind_speed"
+        app:layout_constraintStart_toStartOf="@id/text_wind_speed"
+        app:layout_constraintTop_toBottomOf="@id/text_wind_speed" />
+
+    <TextView
+        android:id="@+id/cloud_cover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/cloud_cover"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/text_wind_speed"
+        app:layout_constraintTop_toTopOf="@id/text_wind_speed" />
+
+    <TextView
+        android:id="@+id/cloud_cover_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/poppins"
+        android:text="@string/_16"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:drawableTopCompat="@drawable/baseline_cloud_24"
+        app:layout_constraintEnd_toEndOf="@id/cloud_cover"
+        app:layout_constraintStart_toStartOf="@id/cloud_cover"
+        app:layout_constraintTop_toBottomOf="@id/cloud_cover" />
+
+    <TextView
+        android:id="@+id/outfit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/recommended_outfit"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_humidity_percent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
