@@ -15,4 +15,7 @@ object SharedPref {
         get() = sharedPreferences.getInt(Constants.KEY_CLOTH, 0)
         set(value) = sharedPreferences.edit().putInt(Constants.KEY_CLOTH, value!!).apply()
 
+    var date: String?
+        get() = sharedPreferences.getString(Constants.KEY_DATE, "")
+        set(value) = sharedPreferences.edit().putString(Constants.KEY_DATE, value!!).apply()
 }

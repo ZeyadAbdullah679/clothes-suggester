@@ -1,6 +1,5 @@
 package com.example.clothingsuggester.data
 
-import android.util.Log
 import com.example.clothingsuggester.R
 import com.example.clothingsuggester.domain.Cloth
 import com.example.clothingsuggester.util.SharedPref
@@ -28,22 +27,22 @@ object DataManager {
     )
     val clothes = clothesList
 
-    fun getRecommendedOutfit(temperature: Double): List<Cloth> {
+    fun getRecommendedOutfit(temperature: Double, oldDate: String?, newDate: String): List<Cloth> {
         val filteredClothes =
-            clothes.filter { it.minPreferredTemp <= temperature && it.maxPreferredTemp > temperature }
+            clothes.filter { temperature in it.minPreferredTemp..it.maxPreferredTemp }
 
+        updateSharedPref(filteredClothes, oldDate, newDate)
 
-        if (SharedPref.clothId == null)
-            SharedPref.clothId = 0
-        else {
-            SharedPref.clothId = (SharedPref.clothId!! + 1) % filteredClothes.size
-        }
-
-        val recommendedClothes = mutableListOf<Cloth>().apply {
+        return mutableListOf<Cloth>().apply {
             addAll(filteredClothes.subList(SharedPref.clothId!!, filteredClothes.size))
             addAll(filteredClothes.subList(0, SharedPref.clothId!!))
         }
+    }
 
-        return recommendedClothes
+    private fun updateSharedPref(filteredClothes: List<Cloth>, oldDate: String?, newDate: String) {
+        if (SharedPref.clothId == null)
+            SharedPref.clothId = 0
+        else if (oldDate != newDate)
+            SharedPref.clothId = (SharedPref.clothId!! + 1) % filteredClothes.size
     }
 }
