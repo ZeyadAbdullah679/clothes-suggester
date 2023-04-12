@@ -30,7 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     @RequiresApi(Build.VERSION_CODES.O)
     private fun onResponse(response: Response) {
         val weatherState = Gson().fromJson(response.body?.string(), WeatherData::class.java)
-        val currentDate: String = LocalDateTime.now().toLocalDate().toString()+"T00:00:00"
+        val currentDate: String = LocalDateTime.now().toLocalDate().toString()
         runOnUiThread {
             updateUiData(weatherState.data.weatherValues)
             updateRecommendedOutfit(weatherState.data.weatherValues.temperature, SharedPref.date, currentDate)
