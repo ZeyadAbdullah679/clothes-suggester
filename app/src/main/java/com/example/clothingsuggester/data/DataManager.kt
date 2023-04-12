@@ -1,7 +1,9 @@
 package com.example.clothingsuggester.data
 
+import android.util.Log
 import com.example.clothingsuggester.R
 import com.example.clothingsuggester.domain.Cloth
+import com.example.clothingsuggester.util.SharedPref
 
 object DataManager {
     private val clothesList: List<Cloth> = listOf(
@@ -23,6 +25,25 @@ object DataManager {
         Cloth(16, R.drawable.white_jacket_white_cap_blue_jens, 10.0, 20.0),
         Cloth(17, R.drawable.yellow_chemise_black_cap_black_pants, 15.0, 25.0),
         Cloth(18, R.drawable.yellow_white_chemise_blue_pants_grey_shoes, 20.0, 30.0),
-        )
+    )
     val clothes = clothesList
+
+    fun getRecommendedOutfit(temperature: Double): List<Cloth> {
+        val filteredClothes =
+            clothes.filter { it.minPreferredTemp <= temperature && it.maxPreferredTemp > temperature }
+
+
+        if (SharedPref.clothId == null)
+            SharedPref.clothId = 0
+        else {
+            SharedPref.clothId = (SharedPref.clothId!! + 1) % filteredClothes.size
+        }
+
+        val recommendedClothes = mutableListOf<Cloth>().apply {
+            addAll(filteredClothes.subList(SharedPref.clothId!!, filteredClothes.size))
+            addAll(filteredClothes.subList(0, SharedPref.clothId!!))
+        }
+
+        return recommendedClothes
+    }
 }
