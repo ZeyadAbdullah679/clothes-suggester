@@ -1,6 +1,7 @@
 package com.example.clothingsuggester.ui
 
 import android.os.Build
+import android.view.View
 import androidx.annotation.RequiresApi
 import com.example.clothingsuggester.data.DataManager
 import com.example.clothingsuggester.databinding.ActivityMainBinding
@@ -58,5 +59,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     }
 
-    private fun onFailure() {}
+    private fun onFailure() {
+        binding.apply {
+            imageWifiOff.visibility = View.VISIBLE
+            textTemperature.visibility = View.INVISIBLE
+        }
+    }
 }

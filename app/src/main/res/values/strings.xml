@@ -10,4 +10,5 @@
     <string name="recommended_outfit">Recommended Outfit</string>
     <string name="clear_sky">Clear Sky</string>
     <string name="clothes">Clothes</string>
+    <string name="wifi_off">wifi off</string>
 </resources>
