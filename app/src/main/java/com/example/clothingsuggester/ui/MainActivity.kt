@@ -8,12 +8,12 @@ import com.example.clothingsuggester.databinding.ActivityMainBinding
 import com.example.clothingsuggester.domain.Cloth
 import com.example.clothingsuggester.domain.WeatherCodes
 import com.example.clothingsuggester.domain.WeatherData
-import com.example.clothingsuggester.domain.WeatherValues
 import com.example.clothingsuggester.ui.adapters.ClothesAdapter
 import com.example.clothingsuggester.util.ApiRequest
 import com.example.clothingsuggester.util.SharedPref
 import com.example.clothingsuggestor.ui.BaseActivity
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import okhttp3.Response
 import java.time.LocalDateTime
 import kotlin.math.roundToInt
@@ -27,16 +27,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     private fun onResponse(response: Response) {
-        val weatherState = Gson().fromJson(response.body?.string(), WeatherData::class.java)
+        val weatherState = gsonParser(response)
         val currentDate: String = LocalDateTime.now().toLocalDate().toString()
         runOnUiThread {
-            updateUiData(weatherState.data.weatherValues)
-            updateRecommendedOutfit(weatherState.data.weatherValues.temperature, SharedPref.date, currentDate)
+            updateUiData(weatherState)
+            updateRecommendedOutfit(weatherState.temperature, SharedPref.date, currentDate)
             SharedPref.date = currentDate
         }
+    }
+
+    private fun gsonParser(response: Response):WeatherData {
+        val data = Gson().fromJson(response.body?.string(), JsonObject::class.java)
+            .getAsJsonObject("data").getAsJsonObject("values")
+        return WeatherData(
+            temperature = data.get("temperature")?.asDouble?:0.0,
+            humidity = data.get("humidity")?.asInt?.toDouble()?:0.0,
+            windSpeed = data.get("windSpeed")?.asDouble?:0.0,
+            cloudCover = data.get("cloudCover")?.asInt?.toDouble()?:0.0,
+            weatherCode = data.get("weatherCode")?.asInt?:0
+        )
     }
 
     private fun updateRecommendedOutfit(temperature: Double, oldDate: String?, newDate: String) {
@@ -49,7 +60,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         binding.recyclerRecommendedOutfit.adapter = ClothesAdapter(clothes)
     }
 
-    private fun updateUiData(weather: WeatherValues) {
+    private fun updateUiData(weather: WeatherData) {
         binding.apply {
             textWeatherState.text = WeatherCodes.weatherCode[weather.weatherCode]
             textTemperature.text = weather.temperature.roundToInt().toString().plus(" °C")
